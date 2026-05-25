@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: content_engine
+      POSTGRES_PASSWORD: content_engine
+      POSTGRES_DB: content_engine
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U content_engine"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://content_engine:content_engine@db:5432/content_engine
+      APP_ENV: development
+      LOG_LEVEL: DEBUG
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests
+      - ./alembic:/app/alembic
+      - ./alembic.ini:/app/alembic.ini
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
