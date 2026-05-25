@@ -28,6 +28,7 @@ dev = [
 [project.scripts]
 scrape-trends = "content_engine.cli.scrape:main"
 analyze-hooks = "content_engine.cli.analyze:main"
+generate-scripts = "content_engine.cli.generate:main"
 
 [build-system]
 requires = ["hatchling"]
@@ -46,7 +47,9 @@ select = ["E", "F", "I", "N", "W", "UP"]
 [tool.ruff.lint.per-file-ignores]
 # Allow long lines in prompt templates and test data
 "src/content_engine/services/hook_analyzer.py" = ["E501"]
+"src/content_engine/services/script_generator.py" = ["E501"]
 "tests/test_hook_analyzer.py" = ["E501"]
+"tests/test_script_generator.py" = ["E501"]
 
 [tool.mypy]
 python_version = "3.11"
