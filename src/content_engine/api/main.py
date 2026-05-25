@@ -2,6 +2,7 @@
 
 from fastapi import FastAPI
 
+from content_engine.api.routes.trends import router as trends_router
 from content_engine.config import get_settings
 
 settings = get_settings()
@@ -11,6 +12,9 @@ app = FastAPI(
     description="AI-powered content generation system for short-form video",
     version="0.1.0",
 )
+
+# Register routers
+app.include_router(trends_router, prefix="/api/v1")
 
 
 @app.get("/health")
