@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from content_engine.api.routes.hooks import router as hooks_router
 from content_engine.api.routes.scripts import router as scripts_router
 from content_engine.api.routes.trends import router as trends_router
+from content_engine.api.routes.visuals import router as visuals_router
 from content_engine.api.routes.voice import router as voice_router
 from content_engine.config import get_settings
 
@@ -21,6 +22,7 @@ app.include_router(trends_router, prefix="/api/v1")
 app.include_router(hooks_router, prefix="/api/v1")
 app.include_router(scripts_router, prefix="/api/v1")
 app.include_router(voice_router, prefix="/api/v1")
+app.include_router(visuals_router, prefix="/api/v1")
 
 
 @app.get("/health")

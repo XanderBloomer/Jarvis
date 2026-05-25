@@ -31,6 +31,7 @@ scrape-trends = "content_engine.cli.scrape:main"
 analyze-hooks = "content_engine.cli.analyze:main"
 generate-scripts = "content_engine.cli.generate:main"
 generate-voice = "content_engine.cli.voice:main"
+generate-visuals = "content_engine.cli.visuals:main"
 
 [build-system]
 requires = ["hatchling"]
