@@ -2,6 +2,7 @@
 
 from fastapi import FastAPI
 
+from content_engine.api.routes.hooks import router as hooks_router
 from content_engine.api.routes.trends import router as trends_router
 from content_engine.config import get_settings
 
@@ -15,6 +16,7 @@ app = FastAPI(
 
 # Register routers
 app.include_router(trends_router, prefix="/api/v1")
+app.include_router(hooks_router, prefix="/api/v1")
 
 
 @app.get("/health")
