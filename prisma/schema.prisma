@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Player {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  frames    Frame[]
+}
+
+model Match {
+  id           String   @id @default(cuid())
+  date         DateTime
+  opponent     String   // Opposing team name
+  season       String   @default("billiards-2026")
+  seasonType   String   @default("billiards") // billiards or snooker
+  createdAt    DateTime @default(now())
+  frames       Frame[]
+}
+
+model Frame {
+  id            String  @id @default(cuid())
+  matchId       String
+  match         Match   @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  playerId      String
+  player        Player  @relation(fields: [playerId], references: [id])
+  playerScore   Int     // 0-200
+  opponentScore Int     // 0-200
+  highBreak     Int?    // Optional high break (must be >= 25 if set)
+  frameNumber   Int     // 1-5 within the match
+  createdAt     DateTime @default(now())
+
+  @@unique([matchId, frameNumber])
+}
