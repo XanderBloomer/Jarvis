@@ -5,11 +5,12 @@ type FrameData = {
   player: { id: string; name: string };
   playerScore: number;
   opponentScore: number;
+  highBreak: number | null;
 };
 
 type MatchData = {
   id: string;
-  date: string;
+  date: string | Date;
   opponent: string;
   frames: FrameData[];
 };
